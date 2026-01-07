@@ -1,6 +1,6 @@
-use pulldown_cmark::{html, Options, Parser};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
+mod markdown;
 
 struct Theme {
     name: String,
@@ -31,10 +31,7 @@ impl Theme {
 }
 
 fn markdown_to_html(content: &str) -> String {
-    let parser = Parser::new_ext(content, Options::all());
-    let mut html_output = String::new();
-    html::push_html(&mut html_output, parser);
-    html_output
+    markdown::render(content)
 }
 
 fn generate_html_page(markdown_content: &str, title: &str, theme: &Theme) -> String {
@@ -47,6 +44,8 @@ fn generate_html_page(markdown_content: &str, title: &str, theme: &Theme) -> Str
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{}</title>
     <style>{}</style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({{ startOnLoad: true }});</script>
 </head>
 <body>
     <div class="container">

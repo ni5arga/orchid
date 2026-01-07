@@ -6,6 +6,7 @@ A minimalist static site generator for Markdown files written in Rust.
 
 - Convert Markdown files to HTML
 - Minimal, clean themes
+- Table, images, mermaid support
 - Fast and lightweight
 - Simple command-line interface
 
